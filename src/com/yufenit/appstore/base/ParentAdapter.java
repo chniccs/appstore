@@ -22,6 +22,11 @@ import android.widget.BaseAdapter;
 public abstract class ParentAdapter<T> extends BaseAdapter
 {
 	private List<T>	mDatas;
+	
+	private static int VIEW_TYPE_NORMAL=0;//普通item的类型
+	
+	private static int VIEW_TYPE_LOADMORE=1;//加载更多的item类型
+	
 
 	public ParentAdapter(List<T> data) {
 		mDatas = data;
@@ -30,7 +35,7 @@ public abstract class ParentAdapter<T> extends BaseAdapter
 	@Override
 	public int getCount()
 	{
-		if (mDatas != null) { return mDatas.size(); }
+		if (mDatas != null) { return mDatas.size()+1; }
 		return 0;
 	}
 
@@ -46,11 +51,31 @@ public abstract class ParentAdapter<T> extends BaseAdapter
 	{
 		return position;
 	}
+	
+	//获得显示条目的view类型
+	@Override
+	public int getItemViewType(int position)
+	{
+		if(position==getCount()-1){return VIEW_TYPE_LOADMORE;}
+		return VIEW_TYPE_NORMAL;
+	}
+	//获得显示view的种类的数量
+	@Override
+	public int getViewTypeCount()
+	{
+		return 2;
+	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent)
 	{
 
+		int type = getItemViewType(position);
+		
+		if(type==VIEW_TYPE_LOADMORE){
+			//TODO
+		}
+		
 		BaseHolder<T> holder = null;
 		if (convertView == null)
 		{

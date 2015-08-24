@@ -1,8 +1,6 @@
 package com.yufenit.appstore.fragment;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import android.view.View;
 import android.widget.ListView;
@@ -85,6 +83,8 @@ public class HomeFragment extends BaseFragment
 		catch (Exception e)
 		{
 			e.printStackTrace();
+			//连接失败
+			return ResultState.ERROR;
 		}
 
 		onStartSuccessView();

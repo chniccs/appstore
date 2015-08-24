@@ -1,6 +1,8 @@
 package com.yufenit.appstore.fragment;
 
 import com.yufenit.appstore.R;
+import com.yufenit.appstore.manager.ThreadPoolManager;
+import com.yufenit.appstore.manager.ThreadPoolProxy;
 import com.yufenit.appstore.utils.UIUtils;
 
 import android.content.Context;
@@ -123,9 +125,28 @@ public abstract class LoadingUI extends FrameLayout
 		mCurrentState=STATE_LOADING;
 		updateUI();
 
-		// 开启子线程去加载数据
-		new Thread(new Runnable() {
-
+//		// 开启子线程去加载数据
+//		new Thread(new Runnable() {
+//
+//			@Override
+//			public void run()
+//			{
+//				// 因为数据是不同的，所以让实现者去处理加载的数据
+//				ResultState state = onLoadData();
+//
+//				mCurrentState = state.getState();
+//
+//				// 加载完成后再更新UI
+//				// 因为此时是在子线程中，所以需要通过handler去实现在主线程中更新UI的方法
+//				SafeUpdateUI();
+//
+//			}
+//
+//		}).start();
+		
+		ThreadPoolProxy longPool = ThreadPoolManager.getLongPool();
+		longPool.execute(new Runnable() {
+			
 			@Override
 			public void run()
 			{
@@ -137,10 +158,8 @@ public abstract class LoadingUI extends FrameLayout
 				// 加载完成后再更新UI
 				// 因为此时是在子线程中，所以需要通过handler去实现在主线程中更新UI的方法
 				SafeUpdateUI();
-
 			}
-
-		}).start();
+		});
 
 	}
 

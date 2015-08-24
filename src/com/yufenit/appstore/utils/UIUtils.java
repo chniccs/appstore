@@ -1,6 +1,5 @@
 package com.yufenit.appstore.utils;
 
-
 import com.yufenit.appstore.BaseApplication;
 import com.yufenit.appstore.R;
 
@@ -10,17 +9,7 @@ import android.os.Handler;
 import android.util.DisplayMetrics;
 
 /**
- * @项目名: GooglePlay10
- * @包名: org.itheima.googleplay10.utils
- * @类名: UIUtils
- * @创建者: chniccs
- * @创建时间: 2015-8-22 下午2:07:58
- * @描述: TODO
- * 
- * @svn版本: $Rev: 6 $
- * @更新人: $Author: xq $
- * @更新时间: $Date: 2015-08-22 14:23:07 +0800 (Sat, 22 Aug 2015) $
- * @更新描述: TODO
+ * ui工具类
  */
 public class UIUtils
 {
@@ -116,23 +105,29 @@ public class UIUtils
 	{
 		return getContext().getPackageName();
 	}
+
 	/**
 	 * 从XML文件中通过属性ID获得文本信息
+	 * 
 	 * @param id
 	 * @return
 	 */
-	public static String[] getStringArray(int id){
-		
-		
+	public static String[] getStringArray(int id)
+	{
+
 		String[] strings = getContext().getResources().getStringArray(id);
 		return strings;
 	}
-	
-	public static int getColor(boolean isSelected){
-		if(isSelected){
-			
+
+	public static int getColor(boolean isSelected)
+	{
+		if (isSelected)
+		{
+
 			return getResources().getColor(R.color.tab_selected);
-		}else{
+		}
+		else
+		{
 			return getResources().getColor(R.color.tab_normal);
 		}
 	}
