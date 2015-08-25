@@ -1,15 +1,13 @@
 package com.yufenit.appstore.protocal;
 
+import java.lang.reflect.Type;
+import java.util.List;
+
 import com.google.gson.Gson;
-import com.lidroid.xutils.HttpUtils;
-import com.lidroid.xutils.exception.HttpException;
-import com.lidroid.xutils.http.RequestParams;
-import com.lidroid.xutils.http.ResponseStream;
-import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
+import com.google.gson.reflect.TypeToken;
 import com.yufenit.appstore.base.BaseProtocal;
 import com.yufenit.appstore.bean.AppInfoBean;
 import com.yufenit.appstore.bean.HomeBean;
-import com.yufenit.appstore.utils.Constants;
 
 
 /**
@@ -25,7 +23,7 @@ import com.yufenit.appstore.utils.Constants;
  * @更新时间:	$Date$
  * @更新描述:	网络访问的类
  */
-public class HomeProtocal extends BaseProtocal<HomeBean>
+public class GameProtocal extends BaseProtocal<List<AppInfoBean>>
 {
 	/**
 	 * 加载数据
@@ -38,16 +36,17 @@ public class HomeProtocal extends BaseProtocal<HomeBean>
 	@Override
 	protected String getInterfacePath()
 	{
-		return "home";
+		return "game";
 	}
 
 	@Override
-	protected HomeBean parseJson(String json)
+	protected List<AppInfoBean> parseJson(String json)
 	{
 		// 解析JSON
 		Gson gson = new Gson();
-		
-		HomeBean bean = gson.fromJson(json, HomeBean.class);
-		return bean;
+		Type type = new TypeToken<List<AppInfoBean>>() {
+		}.getType();
+
+		return gson.fromJson(json, type);
 	}
 }

@@ -1,7 +1,8 @@
-package com.yufenit.appstore.base;
+package com.yufenit.appstore.adapter;
 
 import java.util.List;
 
+import com.yufenit.appstore.base.BaseHolder;
 import com.yufenit.appstore.holder.LoadMoreHolder;
 import com.yufenit.appstore.manager.ThreadPoolManager;
 import com.yufenit.appstore.utils.Constants;

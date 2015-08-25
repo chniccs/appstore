@@ -5,24 +5,13 @@ import java.util.List;
 import android.view.View;
 import android.widget.ListView;
 
-import com.google.gson.Gson;
-import com.lidroid.xutils.HttpUtils;
-import com.lidroid.xutils.exception.HttpException;
-import com.lidroid.xutils.http.RequestParams;
-import com.lidroid.xutils.http.ResponseStream;
-import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 import com.yufenit.appstore.R;
 import com.yufenit.appstore.adapter.ParentAdapter;
 import com.yufenit.appstore.base.BaseFragment;
-import com.yufenit.appstore.base.BaseHolder;
-import com.yufenit.appstore.base.BaseProtocal;
-import com.yufenit.appstore.bean.AppInfoBean;
-import com.yufenit.appstore.bean.HomeBean;
+import com.yufenit.appstore.bean.SubJectBean;
 import com.yufenit.appstore.fragment.LoadingUI.ResultState;
-import com.yufenit.appstore.holder.HomeHolder;
-import com.yufenit.appstore.holder.PicHolder;
-import com.yufenit.appstore.protocal.HomeProtocal;
-import com.yufenit.appstore.utils.Constants;
+import com.yufenit.appstore.holder.SubjectHolder;
+import com.yufenit.appstore.protocal.SubjectProtocal;
 import com.yufenit.appstore.utils.UIUtils;
 
 /**
@@ -38,13 +27,12 @@ import com.yufenit.appstore.utils.UIUtils;
  * @更新时间: $Date$
  * @更新描述:
  */
-public class HomeFragment extends BaseFragment
+public class SubjectFragment extends BaseFragment
 {
 
-	private List<AppInfoBean>	mDatas;
-	private List<String>		mPicture;
+	private List<SubJectBean>	mDatas;
 	
-	private HomeProtocal mProtocal;
+	private SubjectProtocal mProtocal;
 
 	@Override
 	public ResultState onStartLoadData()
@@ -79,18 +67,16 @@ public class HomeFragment extends BaseFragment
 //			HomeBean bean = BaseProtocal.getHomeProtocal().loadata(0);
 			if(mProtocal==null){
 				
-				mProtocal=new HomeProtocal();
+				mProtocal=new SubjectProtocal();
 			}
-			HomeBean bean = mProtocal.loadData(0);
+			List<SubJectBean> bean = mProtocal.loadData(0);
 
 			if (bean == null) { return ResultState.EMPTRY; }
 
-			if (bean.list == null || bean.list.size() == 0) { return ResultState.EMPTRY; }
+			if (bean == null || bean.size() == 0) { return ResultState.EMPTRY; }
 
-			if (bean.picture == null || bean.picture.size() == 0) { return ResultState.EMPTRY; }
 
-			mDatas = bean.list;
-			mPicture = bean.picture;
+			mDatas = bean;
 		}
 		catch (Exception e)
 		{
@@ -111,37 +97,29 @@ public class HomeFragment extends BaseFragment
 		ListView mListView = new ListView(UIUtils.getContext());
 		// 设置listview的背景
 		mListView.setBackgroundResource(R.color.bg);
-		
-		//创建图片轮播的holder
-		PicHolder holder=new PicHolder();
-		//添加至顶部
-		mListView.addHeaderView(holder.getRootView());
-		//设置数据
-		holder.setData(mPicture);
 
-		mListView.setAdapter(new HomeAdapter(mDatas));
-	
+		mListView.setAdapter(new SubjectAdapter(mDatas));
 
 		return mListView;
 	}
 
-	public class HomeAdapter extends ParentAdapter<AppInfoBean>
+	public class SubjectAdapter extends ParentAdapter<SubJectBean>
 	{
 
-		public HomeAdapter(List<AppInfoBean> data) {
+		public SubjectAdapter(List<SubJectBean> data) {
 			super(data);
 		}
 
 		@Override
-		protected BaseHolder<AppInfoBean> getItemHolder()
+		protected SubjectHolder getItemHolder()
 
 		{
-			return new HomeHolder();
+			return new SubjectHolder();
 		}
 
 		// 加载更多数据
 		@Override
-		protected List<AppInfoBean> onLoadMoreDatas() throws Exception
+		protected List<SubJectBean> onLoadMoreDatas() throws Exception
 		{
 
 			return loadMoreData(mDatas.size());
@@ -156,7 +134,7 @@ public class HomeFragment extends BaseFragment
 	 * @return
 	 * @throws Exception
 	 */
-	private List<AppInfoBean> loadMoreData(int index) throws Exception
+	private List<SubJectBean> loadMoreData(int index) throws Exception
 	{
 
 		try
@@ -187,11 +165,11 @@ public class HomeFragment extends BaseFragment
 
 		if(mProtocal==null){
 			
-			mProtocal=new HomeProtocal();
+			mProtocal=new SubjectProtocal();
 		}
-		HomeBean bean = mProtocal.loadData(index);
+		List<SubJectBean> bean = mProtocal.loadData(index);
 
-		return bean.list;
+		return bean;
 	}
 
 }

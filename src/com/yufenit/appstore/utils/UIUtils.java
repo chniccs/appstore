@@ -64,6 +64,15 @@ public class UIUtils
 	{
 		getMainHandler().post(task);
 	}
+	/**
+	 * 在主线程中执行任务
+	 * 
+	 * @param task
+	 */
+	public static void postDelayed(Runnable task,long time)
+	{
+		getMainHandler().postDelayed(task, time);
+	}
 
 	/**
 	 * 像素转dp

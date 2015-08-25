@@ -19,8 +19,10 @@ import com.yufenit.appstore.base.BaseProtocal;
 import com.yufenit.appstore.bean.AppInfoBean;
 import com.yufenit.appstore.bean.HomeBean;
 import com.yufenit.appstore.fragment.LoadingUI.ResultState;
+import com.yufenit.appstore.holder.AppHolder;
 import com.yufenit.appstore.holder.HomeHolder;
-import com.yufenit.appstore.holder.PicHolder;
+import com.yufenit.appstore.protocal.AppProtocal;
+import com.yufenit.appstore.protocal.GameProtocal;
 import com.yufenit.appstore.protocal.HomeProtocal;
 import com.yufenit.appstore.utils.Constants;
 import com.yufenit.appstore.utils.UIUtils;
@@ -38,13 +40,12 @@ import com.yufenit.appstore.utils.UIUtils;
  * @更新时间: $Date$
  * @更新描述:
  */
-public class HomeFragment extends BaseFragment
+public class AppFragment extends BaseFragment
 {
 
 	private List<AppInfoBean>	mDatas;
-	private List<String>		mPicture;
 	
-	private HomeProtocal mProtocal;
+	private AppProtocal mProtocal;
 
 	@Override
 	public ResultState onStartLoadData()
@@ -79,18 +80,16 @@ public class HomeFragment extends BaseFragment
 //			HomeBean bean = BaseProtocal.getHomeProtocal().loadata(0);
 			if(mProtocal==null){
 				
-				mProtocal=new HomeProtocal();
+				mProtocal=new AppProtocal();
 			}
-			HomeBean bean = mProtocal.loadData(0);
+			List<AppInfoBean> bean = mProtocal.loadData(0);
 
 			if (bean == null) { return ResultState.EMPTRY; }
 
-			if (bean.list == null || bean.list.size() == 0) { return ResultState.EMPTRY; }
+			if (bean == null || bean.size() == 0) { return ResultState.EMPTRY; }
 
-			if (bean.picture == null || bean.picture.size() == 0) { return ResultState.EMPTRY; }
 
-			mDatas = bean.list;
-			mPicture = bean.picture;
+			mDatas = bean;
 		}
 		catch (Exception e)
 		{
@@ -111,24 +110,16 @@ public class HomeFragment extends BaseFragment
 		ListView mListView = new ListView(UIUtils.getContext());
 		// 设置listview的背景
 		mListView.setBackgroundResource(R.color.bg);
-		
-		//创建图片轮播的holder
-		PicHolder holder=new PicHolder();
-		//添加至顶部
-		mListView.addHeaderView(holder.getRootView());
-		//设置数据
-		holder.setData(mPicture);
 
-		mListView.setAdapter(new HomeAdapter(mDatas));
-	
+		mListView.setAdapter(new AppAdapter(mDatas));
 
 		return mListView;
 	}
 
-	public class HomeAdapter extends ParentAdapter<AppInfoBean>
+	public class AppAdapter extends ParentAdapter<AppInfoBean>
 	{
 
-		public HomeAdapter(List<AppInfoBean> data) {
+		public AppAdapter(List<AppInfoBean> data) {
 			super(data);
 		}
 
@@ -136,7 +127,7 @@ public class HomeFragment extends BaseFragment
 		protected BaseHolder<AppInfoBean> getItemHolder()
 
 		{
-			return new HomeHolder();
+			return new AppHolder();
 		}
 
 		// 加载更多数据
@@ -187,11 +178,11 @@ public class HomeFragment extends BaseFragment
 
 		if(mProtocal==null){
 			
-			mProtocal=new HomeProtocal();
+			mProtocal=new AppProtocal();
 		}
-		HomeBean bean = mProtocal.loadData(index);
+		List<AppInfoBean> bean = mProtocal.loadData(index);
 
-		return bean.list;
+		return bean;
 	}
 
 }
