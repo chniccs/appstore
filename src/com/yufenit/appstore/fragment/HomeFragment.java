@@ -7,17 +7,20 @@ import android.widget.ListView;
 
 import com.google.gson.Gson;
 import com.lidroid.xutils.HttpUtils;
+import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.ResponseStream;
 import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 import com.yufenit.appstore.R;
 import com.yufenit.appstore.base.BaseFragment;
 import com.yufenit.appstore.base.BaseHolder;
+import com.yufenit.appstore.base.BaseProtocal;
 import com.yufenit.appstore.base.ParentAdapter;
 import com.yufenit.appstore.bean.AppInfoBean;
 import com.yufenit.appstore.bean.HomeBean;
 import com.yufenit.appstore.fragment.LoadingUI.ResultState;
 import com.yufenit.appstore.holder.HomeHolder;
+import com.yufenit.appstore.protocal.HomeProtocal;
 import com.yufenit.appstore.utils.Constants;
 import com.yufenit.appstore.utils.UIUtils;
 
@@ -39,6 +42,8 @@ public class HomeFragment extends BaseFragment
 
 	private List<AppInfoBean>	mDatas;
 	private List<String>		mPicture;
+	
+	private HomeProtocal mProtocal;
 
 	@Override
 	public ResultState onStartLoadData()
@@ -52,24 +57,30 @@ public class HomeFragment extends BaseFragment
 		{
 			e.printStackTrace();
 		}
-
-		// 连接网络，此方法是被LoadingUI回调的，本身就处于子线程中，所以不需要开启子线程
-		HttpUtils utils = new HttpUtils();
-
-		String url = Constants.BASE_URL;
-
-		RequestParams params = new RequestParams();
-		params.addQueryStringParameter("index", "0");
-
 		try
 		{
-			ResponseStream stream = utils.sendSync(HttpMethod.GET, url, params);
 
-			String json = stream.readString();
-
-			// 解析JSON
-			Gson gson = new Gson();
-			HomeBean bean = gson.fromJson(json, HomeBean.class);
+			// 连接网络，此方法是被LoadingUI回调的，本身就处于子线程中，所以不需要开启子线程
+//			HttpUtils utils = new HttpUtils();
+//
+//			String url = Constants.BASE_URL;
+//
+//			RequestParams params = new RequestParams();
+//			params.addQueryStringParameter("index", "0");
+//
+//			ResponseStream stream = utils.sendSync(HttpMethod.GET, url, params);
+//
+//			String json = stream.readString();
+//
+//			// 解析JSON
+//			Gson gson = new Gson();
+//			HomeBean bean = gson.fromJson(json, HomeBean.class);
+//			HomeBean bean = BaseProtocal.getHomeProtocal().loadata(0);
+			if(mProtocal==null){
+				
+				mProtocal=new HomeProtocal();
+			}
+			HomeBean bean = mProtocal.loadData(0);
 
 			if (bean == null) { return ResultState.EMPTRY; }
 
@@ -83,7 +94,7 @@ public class HomeFragment extends BaseFragment
 		catch (Exception e)
 		{
 			e.printStackTrace();
-			//连接失败
+			// 连接失败
 			return ResultState.ERROR;
 		}
 
@@ -118,6 +129,60 @@ public class HomeFragment extends BaseFragment
 		{
 			return new HomeHolder();
 		}
+
+		// 加载更多数据
+		@Override
+		protected List<AppInfoBean> onLoadMoreDatas() throws Exception
+		{
+
+			return loadMoreData(mDatas.size());
+
+		}
+
+	}
+
+	/**
+	 * 加载更多数据的方法
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	private List<AppInfoBean> loadMoreData(int index) throws Exception
+	{
+
+		try
+		{
+			Thread.sleep(2000);
+		}
+		catch (InterruptedException e)
+		{
+			e.printStackTrace();
+		}
+
+		// // 连接网络，此方法是被LoadingUI回调的，本身就处于子线程中，所以不需要开启子线程
+		// HttpUtils utils = new HttpUtils();
+		//
+		// String url = Constants.BASE_URL;
+		//
+		// RequestParams params = new RequestParams();
+		// params.addQueryStringParameter("index", "" + index);
+		//
+		// ResponseStream stream = utils.sendSync(HttpMethod.GET, url, params);
+		//
+		// String json = stream.readString();
+		//
+		// // 解析JSON
+		// Gson gson = new Gson();
+		//
+		// HomeBean bean = gson.fromJson(json, HomeBean.class);
+
+		if(mProtocal==null){
+			
+			mProtocal=new HomeProtocal();
+		}
+		HomeBean bean = mProtocal.loadData(index);
+
+		return bean.list;
 	}
 
 }

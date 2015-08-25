@@ -1,7 +1,7 @@
 package com.yufenit.appstore.utils;
 
-import com.yufenit.appstore.BaseApplication;
 import com.yufenit.appstore.R;
+import com.yufenit.appstore.base.BaseApplication;
 
 import android.content.Context;
 import android.content.res.Resources;

@@ -1,5 +1,7 @@
 package com.yufenit.appstore.utils;
 
+import java.util.List;
+
 
 /**
  * @项目名: 	AppStore
@@ -16,8 +18,13 @@ package com.yufenit.appstore.utils;
  */
 public class Constants
 {
+	public static final int	PAGE_SIZE	= 20;
+
 	public static String APPICON_BASEURL="appicon_baseurl";
 
+	public static String BASE_SERVER="http://10.0.2.2:8080/GooglePlayServer/";
+	
+	
 	public static String BASE_URL="http://10.0.2.2:8080/GooglePlayServer/home";
 	
 	public static String BASE_ICON_URL="http://10.0.2.2:8080/GooglePlayServer/image?name=";

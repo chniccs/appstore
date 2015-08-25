@@ -1,4 +1,4 @@
-package com.yufenit.appstore;
+package com.yufenit.appstore.base;
 
 import android.app.Application;
 import android.content.Context;
