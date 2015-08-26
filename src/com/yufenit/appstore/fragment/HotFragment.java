@@ -4,10 +4,15 @@ import java.util.List;
 import java.util.Random;
 
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.StateListDrawable;
 import android.view.Gravity;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.lidroid.xutils.HttpUtils;
@@ -117,29 +122,67 @@ public class HotFragment extends BaseFragment
 		FlowView mView = new FlowView(UIUtils.getContext());
 
 		mView.setPadding(6, 6, 6, 6);
-		
-		
+
 		for (int i = 0; i < mDatas.size(); i++)
 		{
 
-			int red= rdm.nextInt(200)+20;
-			int green= rdm.nextInt(200)+20;
-			int blue= rdm.nextInt(200)+20;
-			
+			int red = rdm.nextInt(200) + 20;
+			int green = rdm.nextInt(200) + 20;
+			int blue = rdm.nextInt(200) + 20;
+			int color = Color.rgb(red, green, blue);
+			// **---通过代码来实现圆角矩形的背景设置---
+
+			GradientDrawable pressed = new GradientDrawable();
+			// --设置形状
+			pressed.setShape(GradientDrawable.RECTANGLE);
+			// --设置圆角
+			pressed.setCornerRadius(UIUtils.dp2px(8));
+
+			pressed.setColor(Color.GRAY);
+
+			// -*--设置不按下时的背景
+			GradientDrawable normal = new GradientDrawable();
+			// --设置形状
+			normal.setShape(GradientDrawable.RECTANGLE);
+			// --设置圆角
+			normal.setCornerRadius(UIUtils.dp2px(8));
+
+			normal.setColor(color);
+
+			// --设置selector
+			StateListDrawable selector = new StateListDrawable();
+
+			selector.addState(new int[] { android.R.attr.state_pressed }, pressed);
+			// --除指定状态外的其它状态都是显示普通的
+			selector.addState(new int[] {}, normal);
+
+			// **---通过代码来实现圆角矩形的背景设置---
+
 			TextView tv = new TextView(UIUtils.getContext());
-			
+
 			tv.setTextColor(Color.WHITE);
-			
+
 			tv.setPadding(3, 3, 3, 3);
-			
+
 			tv.setTextSize(rdm.nextInt(6) + 14);
+
 			
-			int color=Color.rgb(red, green, blue);
-			tv.setBackgroundColor(color);
-			
+			tv.setBackgroundDrawable(selector);
+
 			tv.setGravity(Gravity.CENTER);
-			
+
 			tv.setText(mDatas.get(i));
+			final int position = i;
+
+			tv.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v)
+				{
+					Toast.makeText(UIUtils.getContext(), "" + mDatas.get(position),
+									Toast.LENGTH_SHORT).show();
+				}
+			});
 
 			mView.addView(tv);
 		}
