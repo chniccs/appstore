@@ -59,7 +59,7 @@ public class FragmentFactory
 				fragment=new HomeFragment();
 				break;
 			case 6:
-				fragment=new HomeFragment();
+				fragment=new HotFragment();
 				break;
 
 			default:
