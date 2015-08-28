@@ -1,5 +1,7 @@
 package com.yufenit.appstore.bean;
 
+import java.util.List;
+
 
 /**
  * @项目名: 	AppStore
@@ -24,4 +26,18 @@ public class AppInfoBean
 	public String packageName;
 	public long size;	
 	public float stars;	
+	
+	public String author;
+	public String date;
+	public String downloadNum;	
+	public List<AppInfoSafeBean> safe;	
+	public List<String> screen;	
+	public String version;	
+	
+	public class AppInfoSafeBean{
+		public String safeDes;	
+		public int  safeDesColor;	
+		public String safeDesUrl;	
+		public String safeUrl;	
+	}
 }

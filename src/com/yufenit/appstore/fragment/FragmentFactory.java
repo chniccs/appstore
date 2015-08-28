@@ -53,10 +53,10 @@ public class FragmentFactory
 				fragment=new SubjectFragment();
 				break;
 			case 4:
-				fragment=new HomeFragment();
+				fragment=new RecommendFragment();
 				break;
 			case 5:
-				fragment=new HomeFragment();
+				fragment=new CategoryFragment();
 				break;
 			case 6:
 				fragment=new HotFragment();

@@ -12,6 +12,7 @@ import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.ResponseStream;
 import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 import com.yufenit.appstore.R;
+import com.yufenit.appstore.adapter.AppListAdapter;
 import com.yufenit.appstore.adapter.ParentAdapter;
 import com.yufenit.appstore.base.BaseFragment;
 import com.yufenit.appstore.base.BaseHolder;
@@ -110,24 +111,24 @@ public class GameFragment extends BaseFragment
 		// 设置listview的背景
 		mListView.setBackgroundResource(R.color.bg);
 
-		mListView.setAdapter(new GameAdapter(mDatas));
+		mListView.setAdapter(new GameAdapter(mDatas,mListView));
 
 		return mListView;
 	}
 
-	public class GameAdapter extends ParentAdapter<AppInfoBean>
+	public class GameAdapter extends AppListAdapter
 	{
 
-		public GameAdapter(List<AppInfoBean> data) {
-			super(data);
+		public GameAdapter(List<AppInfoBean> data,ListView listView) {
+			super(data,listView);
 		}
 
-		@Override
-		protected BaseHolder<AppInfoBean> getItemHolder()
-
-		{
-			return new GameHolder();
-		}
+//		@Override
+//		protected BaseHolder<AppInfoBean> getItemHolder(int position)
+//
+//		{
+//			return new GameHolder();
+//		}
 
 		// 加载更多数据
 		@Override

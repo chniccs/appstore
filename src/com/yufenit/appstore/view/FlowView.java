@@ -55,7 +55,7 @@ public class FlowView extends ViewGroup
 		// 获得父类控件的宽度
 		int widthSize = MeasureSpec.getSize(widthMeasureSpec);
 
-		System.out.println(widthSize);
+//		System.out.println(widthSize);
 
 		mLeft += getPaddingLeft();
 
@@ -128,7 +128,7 @@ public class FlowView extends ViewGroup
 			Line line = mLines.get(i);
 			line.layout(mLeft, mTop);
 			mTop += line.mHeight + mVerticalSpace;
-			System.out.println("顶部距离" + mTop);
+//			System.out.println("顶部距离" + mTop);
 		}
 
 	}

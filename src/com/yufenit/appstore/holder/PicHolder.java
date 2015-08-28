@@ -135,7 +135,7 @@ public class PicHolder extends BaseHolder<List<String>> implements OnPageChangeL
 					case MotionEvent.ACTION_DOWN:
 						if(mPicSwicth!=null){
 							mPicSwicth.stop();
-							System.out.println("stop");
+//							System.out.println("stop");
 						}
 						break;
 					case MotionEvent.ACTION_UP:

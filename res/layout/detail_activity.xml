@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg" >
+
+    <!-- 底部按钮部分 -->
+
+    <FrameLayout
+        android:id="@+id/detail_btns_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" >
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_margin="3dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+        <!-- 顶部信息部分 -->
+
+        <FrameLayout
+            android:id="@+id/detail_appinfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+        </FrameLayout>
+        <!-- 安全信息部分 -->
+
+        <FrameLayout
+            android:layout_marginTop="3dp"
+            android:id="@+id/detail_safe"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+        </FrameLayout>
+
+        <!-- 图片部分 -->
+
+        <FrameLayout
+            android:layout_marginTop="3dp"
+            android:id="@+id/detail_pictures"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+        </FrameLayout>
+        <!-- 简介部分 -->
+         <FrameLayout
+             android:layout_marginTop="3dp"
+            android:id="@+id/detail_des"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+        </FrameLayout>
+    </LinearLayout>
+
+</RelativeLayout>

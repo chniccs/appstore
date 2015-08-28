@@ -6,6 +6,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Map;
+
+import android.renderscript.Sampler.Value;
 
 import com.google.gson.Gson;
 import com.lidroid.xutils.HttpUtils;
@@ -33,13 +36,27 @@ import com.yufenit.appstore.utils.UIUtils;
  * @svn版本: $Rev$
  * @更新人: $Author$
  * @更新时间: $Date$
- * @更新描述: 
+ * @更新描述:
  */
 public abstract class BaseProtocal<T>
 {
 
+	private Map<String, String>	mParamters;
+
+	/**
+	 * 访问参数的方法，如果子类有访问参数就复写参方法
+	 * 
+	 * @return
+	 */
+	protected Map<String, String> getParamters()
+	{
+		return null;
+	}
+
 	public T loadData(int index) throws Exception
 	{
+
+		mParamters = getParamters();
 		// ---------------------读取缓存-----------------------
 		if (getFromLocal(index) != null && getFromLocal(index).length() > 0)
 		{
@@ -52,8 +69,25 @@ public abstract class BaseProtocal<T>
 
 		String url = Constants.BASE_SERVER + getInterfacePath();
 
-		RequestParams params = new RequestParams();
-		params.addQueryStringParameter("index", "" + index);
+		RequestParams params = params = new RequestParams();
+
+		if (mParamters != null)
+		{
+
+			for (Map.Entry<String, String> mp : mParamters.entrySet())
+			{
+				String key = mp.getKey();
+				String value = mp.getValue();
+
+				params.addQueryStringParameter(key, value);
+				System.out.println("访问的包名："+value);
+			}
+
+		}
+		else
+		{
+			params.addQueryStringParameter("index", "" + index);
+		}
 
 		ResponseStream stream = utils.sendSync(HttpMethod.GET, url, params);
 
@@ -70,19 +104,36 @@ public abstract class BaseProtocal<T>
 	public String getFromLocal(int index) throws Exception
 	{
 
-		String dir = FileUtils.getDir("json") + getInterfacePath() + index;
+		String dir=null;
+		if (mParamters != null)
+		{
+
+			for (Map.Entry<String, String> mp : mParamters.entrySet())
+			{
+				String key = mp.getKey();
+				String value = mp.getValue();
+
+				dir=FileUtils.getDir("json") + getInterfacePath()+value;
+//				System.out.println("缓存名："+value);
+			}
+
+		}else{
+			
+			dir = FileUtils.getDir("json") + getInterfacePath() + index;
+		}
+
 		File file = new File(dir);
-//		System.out.println(dir);
+		// System.out.println(dir);
 		// 读取本地缓存
 		if (file.exists())
 		{
 			// 获得缓存文件目录
 			BufferedReader rb = new BufferedReader(new FileReader(file));
-			
+
 			// 获得保存时间
 			String time = rb.readLine();
 			long createTime = Long.valueOf(time);
-			
+
 			// 对比当前时间，看是否超时
 			if ((System.currentTimeMillis() - createTime) < Constants.TIME_OUT)
 			{
@@ -99,11 +150,27 @@ public abstract class BaseProtocal<T>
 
 	public void writeToLocal(String json, int index) throws Exception
 	{
+		
+		String dir=null;
+		if (mParamters != null)
+		{
 
-//		System.out.println("写入缓存");
-		String dir = FileUtils.getDir("json") + getInterfacePath() + index;
+			for (Map.Entry<String, String> mp : mParamters.entrySet())
+			{
+				String key = mp.getKey();
+				String value = mp.getValue();
+
+				dir=FileUtils.getDir("json") + getInterfacePath()+value;
+			}
+
+		}else{
+			
+			dir = FileUtils.getDir("json") + getInterfacePath() + index;
+		}
+
 		// ---------------------创建缓存-----------------------
 		File file = new File(dir);
+		// System.out.println("写入地址"+dir);
 		if (json != null)
 		{
 			// 获得缓存文件目录
@@ -111,10 +178,10 @@ public abstract class BaseProtocal<T>
 			// 获得保存时间
 			long time = System.currentTimeMillis();
 			String createTime = Long.toString(time);
-			
+
 			rw.write(createTime);
 			rw.newLine();
-			
+
 			rw.write(json);
 			IOUtils.close(rw);
 		}

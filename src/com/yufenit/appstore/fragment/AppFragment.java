@@ -12,6 +12,7 @@ import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.ResponseStream;
 import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 import com.yufenit.appstore.R;
+import com.yufenit.appstore.adapter.AppListAdapter;
 import com.yufenit.appstore.adapter.ParentAdapter;
 import com.yufenit.appstore.base.BaseFragment;
 import com.yufenit.appstore.base.BaseHolder;
@@ -46,6 +47,8 @@ public class AppFragment extends BaseFragment
 	private List<AppInfoBean>	mDatas;
 	
 	private AppProtocal mProtocal;
+
+	private ListView	mListView;
 
 	@Override
 	public ResultState onStartLoadData()
@@ -106,8 +109,7 @@ public class AppFragment extends BaseFragment
 	@Override
 	public View onStartSuccessView()
 	{
-		// 返回加载数据成功时的view方法
-		ListView mListView = new ListView(UIUtils.getContext());
+		mListView = new ListView(UIUtils.getContext());
 		// 设置listview的背景
 		mListView.setBackgroundResource(R.color.bg);
 
@@ -116,28 +118,21 @@ public class AppFragment extends BaseFragment
 		return mListView;
 	}
 
-	public class AppAdapter extends ParentAdapter<AppInfoBean>
+	public class AppAdapter extends AppListAdapter
 	{
 
 		public AppAdapter(List<AppInfoBean> data) {
-			super(data);
-		}
-
-		@Override
-		protected BaseHolder<AppInfoBean> getItemHolder()
-
-		{
-			return new AppHolder();
+			super(data, mListView);
 		}
 
 		// 加载更多数据
+		
 		@Override
 		protected List<AppInfoBean> onLoadMoreDatas() throws Exception
 		{
-
 			return loadMoreData(mDatas.size());
-
 		}
+	
 
 	}
 

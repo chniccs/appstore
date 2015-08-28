@@ -40,6 +40,16 @@ public class UIUtils
 	 * @param resId
 	 * @return
 	 */
+	public static String getString(int resId,Object... args)
+	{
+		return getContext().getResources().getString(resId,args);
+	}
+	/**
+	 * 获得string类型的数据
+	 * 
+	 * @param resId
+	 * @return
+	 */
 	public static String getString(int resId)
 	{
 		return getContext().getResources().getString(resId);

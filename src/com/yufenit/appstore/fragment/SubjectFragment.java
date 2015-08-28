@@ -111,7 +111,7 @@ public class SubjectFragment extends BaseFragment
 		}
 
 		@Override
-		protected SubjectHolder getItemHolder()
+		protected SubjectHolder getItemHolder(int position)
 
 		{
 			return new SubjectHolder();

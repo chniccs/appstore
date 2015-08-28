@@ -92,7 +92,7 @@ public abstract class ParentAdapter<T> extends BaseAdapter
 		}
 		else
 		{
-			holder = getItemHolder();
+			holder = getItemHolder(position);
 		}
 
 		if (convertView == null)
@@ -242,7 +242,7 @@ public abstract class ParentAdapter<T> extends BaseAdapter
 	 * 
 	 * @return
 	 */
-	private boolean getMore()
+	protected boolean getMore()
 	{
 
 		return true;
@@ -264,5 +264,5 @@ public abstract class ParentAdapter<T> extends BaseAdapter
 	}
 
 	// 让子类去实现对应的holder
-	protected abstract BaseHolder<T> getItemHolder();
+	protected abstract BaseHolder<T> getItemHolder(int position);
 }

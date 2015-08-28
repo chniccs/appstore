@@ -1,9 +1,11 @@
 package com.yufenit.appstore.view;
 
 import com.yufenit.appstore.R;
+import com.yufenit.appstore.utils.UIUtils;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.widget.FrameLayout;
 
 /**
@@ -63,17 +65,20 @@ public class RatioLayout extends FrameLayout
 
 		int heightSize = MeasureSpec.getSize(heightMeasureSpec);
 		int heightsMode = MeasureSpec.getMode(heightMeasureSpec);
-
+		Log.d("ratiolayout",UIUtils.px2dp(1080)+"pd" );
+		
+		
 		// 测量孩子
 		// 1.已知宽高比，宽度，计算高度
 		if (widthMode == MeasureSpec.EXACTLY && mRatio != 0 && mRelative == RELATIVE_WIDTH)
 		{
+			
 			// 获得孩子的宽度
 			int width = widthSize - getPaddingLeft() - getPaddingRight();
 
 			// 通过宽度计算高度
 			int height = (int) (width / mRatio + 0.5f);
-
+//			Log.d("ratiolayout:自身高度",width+"" );
 			// 期望孩子的宽度和高度
 			measureChildren(MeasureSpec.makeMeasureSpec(width, MeasureSpec.EXACTLY),
 							MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY));
@@ -95,6 +100,9 @@ public class RatioLayout extends FrameLayout
 
 			// 设置自己的高度
 			setMeasuredDimension(width + getPaddingLeft() + getPaddingRight(), heightSize);
+			int i=width + getPaddingLeft() + getPaddingRight();
+			Log.d("ratiolayout:自身高度",i+"" );
+			Log.d("ratiolayout:自身高度",width+"" );
 		}
 		else
 		{
