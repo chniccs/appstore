@@ -65,7 +65,6 @@ public class RatioLayout extends FrameLayout
 
 		int heightSize = MeasureSpec.getSize(heightMeasureSpec);
 		int heightsMode = MeasureSpec.getMode(heightMeasureSpec);
-		Log.d("ratiolayout",UIUtils.px2dp(1080)+"pd" );
 		
 		
 		// 测量孩子
@@ -101,8 +100,6 @@ public class RatioLayout extends FrameLayout
 			// 设置自己的高度
 			setMeasuredDimension(width + getPaddingLeft() + getPaddingRight(), heightSize);
 			int i=width + getPaddingLeft() + getPaddingRight();
-			Log.d("ratiolayout:自身高度",i+"" );
-			Log.d("ratiolayout:自身高度",width+"" );
 		}
 		else
 		{

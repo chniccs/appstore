@@ -23,16 +23,16 @@ public class Constants
 
 	public static final String		APPICON_BASEURL	= "appicon_baseurl";
 	
-	public static final String		BASE_SERVER		= "http://192.168.191.1:8080/GooglePlayServer/";
+//	public static final String		BASE_SERVER		= "http://192.168.191.1:8080/GooglePlayServer/";
 //	public static final String		BASE_SERVER		= "http://192.168.1.103:8080/GooglePlayServer/";
-//	public static final String		BASE_SERVER		= "http://10.0.2.2:8080/GooglePlayServer/";
+	public static final String		BASE_SERVER		= "http://10.0.2.2:8080/GooglePlayServer/";
 	public static final String	BASE_IMAGE		= BASE_SERVER + "image?name=";							;
 
-	public static final String		BASE_URL		= "http://192.168.191.1:8080/GooglePlayServer/home";
+//	public static final String		BASE_URL		= "http://192.168.191.1:8080/GooglePlayServer/home";
 //	public static final String		BASE_URL		= "http://192.168.1.103:8080/GooglePlayServer/home";
-//	public static final String		BASE_URL		= "http://10.0.2.2:8080/GooglePlayServer/home";
+	public static final String		BASE_URL		= "http://10.0.2.2:8080/GooglePlayServer/home";
 
-	public static final String		BASE_ICON_URL	= "http://192.168.191.1:8080/GooglePlayServer/image?name=";
+//	public static final String		BASE_ICON_URL	= "http://192.168.191.1:8080/GooglePlayServer/image?name=";
 //	public static final String		BASE_ICON_URL	= "http://192.168.1.103:8080/GooglePlayServer/image?name=";
-//	public static final String		BASE_ICON_URL	= "http://10.0.2.2:8080/GooglePlayServer/image?name=";
+	public static final String		BASE_ICON_URL	= "http://10.0.2.2:8080/GooglePlayServer/image?name=";
 }

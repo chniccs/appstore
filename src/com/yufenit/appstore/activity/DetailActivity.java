@@ -157,7 +157,7 @@ public class DetailActivity extends ActionBarActivity
 		//图片部分
 		DetailPicsHolder picHolder=new DetailPicsHolder();
 		mPicsContainer.addView(picHolder.getRootView());
-		picHolder.setData(mBean);
+		picHolder.setData(mBean.screen);
 		//简介部分
 		DetailDesHolder desHolder=new DetailDesHolder();
 		mDesContainer.addView(desHolder.getRootView());
@@ -189,7 +189,6 @@ public class DetailActivity extends ActionBarActivity
 				icon=new BitmapDrawable(getResources(),bitmap);
 			}
 		}
-		System.out.println(mBean.name);
 
 		mActionBar = getSupportActionBar();
 

@@ -18,7 +18,7 @@ import android.view.View;
 public abstract class BaseHolder<T>
 {
 
-	private View	mView;
+	protected View	mView;
 
 	public BaseHolder() {
 		this.mView = initView();

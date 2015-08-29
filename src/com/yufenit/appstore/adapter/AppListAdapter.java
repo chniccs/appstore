@@ -57,7 +57,6 @@ public class AppListAdapter extends ParentAdapter<AppInfoBean> implements OnItem
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id)
 	{
-		System.out.println("点击了");
 		
 		Intent intent=new Intent();
 		

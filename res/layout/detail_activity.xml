@@ -14,41 +14,58 @@
     </FrameLayout>
 
     <LinearLayout
-        android:layout_margin="3dp"
+        android:layout_above="@id/detail_btns_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical" >
-        <!-- 顶部信息部分 -->
 
-        <FrameLayout
-            android:id="@+id/detail_appinfo"
+        <ScrollView
+            android:id="@+id/detail_appinfos"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
-        </FrameLayout>
-        <!-- 安全信息部分 -->
 
-        <FrameLayout
-            android:layout_marginTop="3dp"
-            android:id="@+id/detail_safe"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-        </FrameLayout>
+            <!-- 顶部信息部分 -->
 
-        <!-- 图片部分 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/detail_btns_container"
+                android:layout_margin="3dp"
+                android:orientation="vertical" >
 
-        <FrameLayout
-            android:layout_marginTop="3dp"
-            android:id="@+id/detail_pictures"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-        </FrameLayout>
-        <!-- 简介部分 -->
-         <FrameLayout
-             android:layout_marginTop="3dp"
-            android:id="@+id/detail_des"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-        </FrameLayout>
+                <FrameLayout
+                    android:id="@+id/detail_appinfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+                </FrameLayout>
+                <!-- 安全信息部分 -->
+
+                <FrameLayout
+                    android:id="@+id/detail_safe"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp" >
+                </FrameLayout>
+
+                <!-- 图片部分 -->
+
+                <FrameLayout
+                    android:id="@+id/detail_pictures"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:background="#44000000" >
+                </FrameLayout>
+                <!-- 简介部分 -->
+
+                <FrameLayout
+                    android:id="@+id/detail_des"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp" >
+                </FrameLayout>
+            </LinearLayout>
+        </ScrollView>
     </LinearLayout>
 
 </RelativeLayout>
